@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2>Create New Todo</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <button type="submit">Create Todo</button>
+</form>
+<h3>All Todos</h3>
+<ul>
+{for todo_item in todos%}
+    <li>
+        <h4>{{todo_item.title}}</h4>
+        <p>{{todo.item.content}}</p>
+        <p>Completed: {{ todo_item.is_completed|yesno:"Yes,No"}}</p>
+    </li>
+{% empty %}
+    <li>No todos yet.</li>
+{% endfor %}    
+</ul>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Note(models.Model):
+class ToDo(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     is_completed = models.BooleanField(default=False)
@@ -9,7 +9,7 @@ class Note(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'note'
+        db_table = 'ToDO'
         ordering = ['-id']
 
     def __str__(self):

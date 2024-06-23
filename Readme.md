@@ -10,3 +10,8 @@ python manage.py createsuperuser (to create username and password)
  pip install psycopg2-binary (connect postgres)
  pip install -r .\requirements.txt (to install all the packages in requirements)
 
+-(Post method is used to create object)
+-(Get method is used to create list,retrieve)
+-put and patch method is used to update(put update all the method/patch update particular object)
+-delete method is used for delete
+-to start project first make models,form, view, template
