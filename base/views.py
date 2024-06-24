@@ -6,9 +6,9 @@ from base.models import ToDo
 
 def create_todo(request):
     if request.method == 'POST':
-        post_data = request.Post.copy()
+        post_data = request.POST.copy()
 
-        post_data['is_completed'] = request.Post.get('is_completed') == 'on'
+        post_data['is_completed'] = request.POST.get('is_completed') == 'on'
 
         form = ToDoForm(post_data)
         if form.is_valid():
@@ -18,4 +18,4 @@ def create_todo(request):
         form = ToDoForm()
     todos = ToDo.objects.all()
     context = {'form': form, 'todos': todos}
-    return render(request, 'base/create.html', context)
+    return render(request, 'create.html', context)

@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from base.models import Note
+from base.models import ToDo
 
-admin.site.register(Note)
+admin.site.register(ToDo)
