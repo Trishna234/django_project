@@ -16,20 +16,18 @@ def loginPage(request):
 
         try:
             user = User.objects.get(email=email)
-        except:
+            user = authenticate(request, username=user.username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('create')
+            else:
+                messages.error(request,message='Invalid password')
+
+        except User.DoesNotExist:
             messages.error(request, message='User does not exit')
-
-        user = authenticate(request, email=email, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('create')
-        else:
-            messages.error(request, message="Username or Password doesn't exit")
 
     context = {'page': page}
     return render(request, template_name='login_register.html', context=context)
-
 
 def logoutUser(request):
     logout(request)
@@ -52,6 +50,24 @@ def registerPage(request):
 
     return render(request, template_name='login_register.html', context={'form': form})
 
+def registerPage(request):
+    form = MyUserCreationForm()
+
+    if request.method == 'POST':
+        form = MyUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('create')
+        else:
+            messages.error(request,message='An error occured during registration')
+
+    return  render(request,template_name='login_register.html', context={'form': form})
+
+
+
 
 def create_todo(request):
     if request.method == 'POST':
@@ -68,6 +84,8 @@ def create_todo(request):
     todos = ToDo.objects.all()
     context = {'form': form, 'todos': todos}
     return render(request, 'create.html', context)
+
+
 
 
 # get compare the value in single row
