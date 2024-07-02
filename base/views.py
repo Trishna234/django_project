@@ -3,7 +3,7 @@ from base.models import ToDo
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 def loginPage(request):
@@ -21,13 +21,14 @@ def loginPage(request):
                 login(request, user)
                 return redirect('create')
             else:
-                messages.error(request,message='Invalid password')
+                messages.error(request, message='Invalid password')
 
         except User.DoesNotExist:
             messages.error(request, message='User does not exit')
 
     context = {'page': page}
     return render(request, template_name='login_register.html', context=context)
+
 
 def logoutUser(request):
     logout(request)
@@ -50,21 +51,6 @@ def registerPage(request):
 
     return render(request, template_name='login_register.html', context={'form': form})
 
-def registerPage(request):
-    form = MyUserCreationForm()
-
-    if request.method == 'POST':
-        form = MyUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect('create')
-        else:
-            messages.error(request,message='An error occured during registration')
-
-    return  render(request,template_name='login_register.html', context={'form': form})
 
 
 
@@ -85,8 +71,27 @@ def create_todo(request):
     context = {'form': form, 'todos': todos}
     return render(request, 'create.html', context)
 
+def update_todo(request, pk):
+    todo = get_object_or_404(ToDo, pk=pk)
+    if request.method == 'POST':
+        form = ToDoForm(request.POST, instance=todo)
+        if form.is_valid():
+            form.save()
+            return redirect('create')
+        else:
+            form = ToDoForm(instance=todo)
 
+        context = { 'form': form, 'todo':todo}
+        return render(request, template_name='update_todo.html', context)
+
+def delete_todo(request, pk):
+    todo = get_object_or_404(ToDo,pk=pk)
+
+    if request.method == 'POST':
+        todo.delete()
+        return redirect('create')
+    context = { 'todo': todo}
+    return render(request, template_name='delete_todo.html', context)
 
 
 # get compare the value in single row
-
