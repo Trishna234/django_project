@@ -52,9 +52,6 @@ def registerPage(request):
     return render(request, template_name='login_register.html', context={'form': form})
 
 
-
-
-
 def create_todo(request):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -71,6 +68,7 @@ def create_todo(request):
     context = {'form': form, 'todos': todos}
     return render(request, 'create.html', context)
 
+
 def update_todo(request, pk):
     todo = get_object_or_404(ToDo, pk=pk)
     if request.method == 'POST':
@@ -81,17 +79,17 @@ def update_todo(request, pk):
         else:
             form = ToDoForm(instance=todo)
 
-        context = { 'form': form, 'todo':todo}
-        return render(request, template_name='update_todo.html', context)
+        context = {'form': form, 'todo': todo}
+        return render(request, 'update_todo.html', context)
+
 
 def delete_todo(request, pk):
-    todo = get_object_or_404(ToDo,pk=pk)
+    todo = get_object_or_404(ToDo, pk=pk)
 
     if request.method == 'POST':
         todo.delete()
         return redirect('create')
-    context = { 'todo': todo}
-    return render(request, template_name='delete_todo.html', context)
-
+    context = {'todo': todo}
+    return render(request, 'delete_todo.html', context)
 
 # get compare the value in single row
