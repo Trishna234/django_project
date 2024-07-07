@@ -2,6 +2,7 @@ pip install django
 django-admin startproject project .  (to start project)
 python manage.py startapp base     (to install app)
 python manage.py runserver    (to run the server)
+python -m venv venv (to create virtual environment)
 
  python manage.py makemigrations (used for database table)
  python manage.py migrate 

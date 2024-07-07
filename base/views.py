@@ -85,6 +85,7 @@ def update_todo(request, pk):
 
 def delete_todo(request, pk):
     todo = get_object_or_404(ToDo, pk=pk)
+    # todo = ToDo.objects.get(pk=pk)
 
     if request.method == 'POST':
         todo.delete()

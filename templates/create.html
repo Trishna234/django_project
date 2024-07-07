@@ -1,18 +1,19 @@
 {% extends 'main.html' %}
 {% block content %}
-<h3>Welcome {{request.user}}</h3>
-<a href="{% url 'logout' %}" class="btn btn--link">Logout</a>
-<h2>Create New Todo</h2>
-<form method="POST">
+<h3 style="color:white; font-size:50px;">Welcome {{request.user}}</h3>
+
+<h2 style="text-align:center; color: White; font-size:30px;">Create New Todo</h2>
+<form method="POST" style="text-align: center;">
     {% csrf_token %}
     {{ form.as_p}}
     <button type="submit">Create Todo</button>
 </form>
+<a href="{% url 'logout' %}" class="btn btn--link">Logout</a>
 <h3>All Todos</h3>
 <ul>
 {% for todo_item in todos %}
     <li>
-        <h4>{{todo_item.title}}</h4>
+        <h4 style="text-align:center; color:white;">{{todo_item.title}}</h4>
         <p>{{todo.item.content}}</p>
         <p>Completed: {{ todo_item.is_completed|yesno:"Yes,No"}}</p>
         <a href="{% url 'update_todo' todo_item.pk %}" class="btn btn--link">Update</a>

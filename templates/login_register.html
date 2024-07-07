@@ -9,11 +9,11 @@
             <div class="form__group">
                 <label>Email</label>
                 <input id="username" name="email" type="email" placeholder="abcd@gmail.com">
-            </div>
+            </div><br>
             <div class="form__group">
                 <label for="password">Password</label>
                 <input id="password" name="password" type="password" placeholder="">
-            </div>
+            </div><br>
             <button class="btn btn--main" type="submit">
                 Login
             </button>
@@ -21,7 +21,8 @@
         <div class="auth__action">
             <p>Haven't signed up yet?</p>
             <a href="{% url 'register' %}" class="btn btn--link">Sign Up</a>
-        </div>
+        </div><br><br>
+
     {% else %}
         <div class="container">
             <div class="layout__box">
@@ -36,12 +37,12 @@
                         <div class="form__group">
                             <label>{{ field.label }}</label>
                             {{ field }}
-                        </div>
+                        </div><br>
                     {% endfor %}
                     <button class="btn btn--main" type="submit">
                         Register
                     </button>
-                </form>
+                </form><br>
                 <div class="auth__action">
                     <p>Already Signed In</p>
                     <a href="{% url 'login' %}" class="btn btn--link">Sign In</a>
