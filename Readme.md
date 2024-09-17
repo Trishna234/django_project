@@ -16,3 +16,5 @@ python manage.py createsuperuser (to create username and password)
 -put and patch method is used to update(put update all the method/patch update particular object)
 -delete method is used for delete
 -to start project first make models,form, view, template
+ 
+pip install djangorestframework (to install rest framework)
